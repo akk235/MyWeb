@@ -1,1 +1,414 @@
 # akk235.github.io
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Andy Kwan — Business Analyst</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#191d23; --ink-soft:#4a5158; --line:#d8dad4;
+    --paper:#eff1ee; --card:#f8f9f6; --card-line:#dfe2db;
+    --amber:#e0962b; --indigo:#1f2a44; --amber-soft:#f6e3c2;
+    --radius:2px;
+    --font-display:'Space Grotesk', 'Segoe UI', Arial, sans-serif;
+    --font-body:'IBM Plex Sans', 'Segoe UI', Arial, sans-serif;
+    --font-mono:'IBM Plex Mono', 'Courier New', monospace;
+  }
+  :root:not([data-theme="light"]){
+    @media (prefers-color-scheme: dark){
+      --ink:#eef0ec; --ink-soft:#a9afb6; --line:#3a3f38;
+      --paper:#14161a; --card:#1b1e22; --card-line:#2c3036;
+      --amber:#f0a83e; --indigo:#cfd8f0; --amber-soft:#3a2f1a;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#eef0ec; --ink-soft:#a9afb6; --line:#3a3f38;
+    --paper:#14161a; --card:#1b1e22; --card-line:#2c3036;
+    --amber:#f0a83e; --indigo:#cfd8f0; --amber-soft:#3a2f1a;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:var(--font-body); line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  img,svg{max-width:100%; display:block;}
+  a{color:inherit;}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 28px;}
+  section{padding:96px 0;}
+  @media (max-width:640px){ section{padding:64px 0;} }
+
+  h1,h2,h3{font-family:var(--font-display); font-weight:600; letter-spacing:-0.01em; margin:0;}
+  h2{font-size:clamp(26px,3.4vw,34px); margin-bottom:40px;}
+  p{max-width:62ch;}
+  .mono{font-family:var(--font-mono); font-size:13px; letter-spacing:0.02em;}
+
+  /* ---- Nav ---- */
+  header.nav{
+    position:sticky; top:0; z-index:50; backdrop-filter:blur(8px);
+    background:color-mix(in srgb, var(--paper) 86%, transparent);
+    border-bottom:1px solid var(--line);
+  }
+  .nav .wrap{display:flex; align-items:center; justify-content:space-between; padding:16px 28px;}
+  .nav .name{font-family:var(--font-display); font-weight:600; font-size:16px;}
+  .nav nav{display:flex; gap:28px;}
+  .nav nav a{font-size:14px; text-decoration:none; color:var(--ink-soft); transition:color .15s;}
+  .nav nav a:hover{color:var(--ink);}
+  .nav nav a:focus-visible, a:focus-visible, button:focus-visible{outline:2px solid var(--amber); outline-offset:3px;}
+  @media (max-width:640px){ .nav nav{gap:16px;} .nav nav a{font-size:12.5px;} }
+
+  /* ---- Hero ---- */
+  .hero{padding-top:88px; padding-bottom:64px;}
+  .hero .wrap{display:grid; grid-template-columns:1.1fr 1fr; gap:56px; align-items:center;}
+  @media (max-width:860px){ .hero .wrap{grid-template-columns:1fr;} }
+  .hero h1{font-size:clamp(34px,5.2vw,52px); line-height:1.08;}
+  .hero .tagline{font-size:clamp(18px,2.1vw,22px); color:var(--ink-soft); margin-top:18px; max-width:44ch; font-weight:400;}
+  .hero .lede{margin-top:20px; font-size:15px; color:var(--ink-soft);}
+  .cta-row{display:flex; gap:14px; margin-top:32px; flex-wrap:wrap;}
+  .btn{
+    font-family:var(--font-body); font-size:14px; font-weight:500;
+    padding:12px 22px; border-radius:var(--radius); text-decoration:none;
+    display:inline-flex; align-items:center; gap:8px; transition:transform .15s, background .15s;
+    border:1px solid var(--ink);
+  }
+  .btn-solid{background:var(--ink); color:var(--paper);}
+  .btn-solid:hover{transform:translateY(-1px);}
+  .btn-ghost{border-color:var(--card-line); color:var(--ink);}
+  .btn-ghost:hover{border-color:var(--ink);}
+
+  /* flow diagram */
+  .flow{position:relative; padding:20px 0;}
+  .flow-node{
+    background:var(--card); border:1px solid var(--card-line); border-radius:var(--radius);
+    padding:14px 16px; font-family:var(--font-mono); font-size:12.5px; color:var(--ink-soft);
+    display:flex; align-items:center; gap:10px; margin-bottom:0;
+  }
+  .flow-node b{font-family:var(--font-body); font-weight:600; color:var(--ink); font-size:14px;}
+  .flow-dot{width:8px; height:8px; border-radius:50%; background:var(--amber); flex-shrink:0;}
+  .flow-connector{width:1px; height:30px; background:var(--card-line); margin-left:23px; position:relative;}
+  .flow-connector::after{
+    content:""; position:absolute; bottom:-1px; left:-3px; width:7px; height:7px;
+    border-right:1px solid var(--card-line); border-bottom:1px solid var(--card-line); transform:rotate(45deg);
+  }
+
+  /* ---- About ---- */
+  .about .wrap{display:grid; grid-template-columns:0.7fr 1.3fr; gap:56px;}
+  @media (max-width:760px){ .about .wrap{grid-template-columns:1fr; gap:20px;} }
+  .about .label{font-family:var(--font-mono); font-size:13px; color:var(--amber);}
+  .about p{color:var(--ink-soft); font-size:16px;}
+  .about p strong{color:var(--ink); font-weight:600;}
+
+  /* ---- Skills ---- */
+  .skill-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--card-line); border:1px solid var(--card-line);}
+  @media (max-width:700px){ .skill-grid{grid-template-columns:1fr;} }
+  .skill-group{background:var(--card); padding:26px 28px;}
+  .skill-group h3{font-size:14px; font-family:var(--font-mono); font-weight:500; color:var(--amber); margin-bottom:16px;}
+  .chip-row{display:flex; flex-wrap:wrap; gap:8px;}
+  .chip{
+    font-size:13px; padding:6px 12px; border:1px solid var(--card-line); border-radius:var(--radius);
+    color:var(--ink-soft); background:transparent;
+  }
+
+  /* ---- Case studies ---- */
+  .case{
+    border:1px solid var(--card-line); border-radius:var(--radius); background:var(--card);
+    padding:36px; margin-bottom:24px;
+  }
+  .case-head{display:flex; justify-content:space-between; align-items:baseline; gap:16px; flex-wrap:wrap; margin-bottom:6px;}
+  .case-head h3{font-size:21px;}
+  .case-head span{font-family:var(--font-mono); font-size:12.5px; color:var(--ink-soft);}
+  .case .role{color:var(--ink-soft); font-size:14px; margin-bottom:20px;}
+  .case-body{display:grid; grid-template-columns:1fr 1fr; gap:32px;}
+  @media (max-width:700px){ .case-body{grid-template-columns:1fr; gap:18px;} }
+  .case-col h4{font-size:12.5px; font-family:var(--font-mono); color:var(--amber); margin:0 0 10px; font-weight:500;}
+  .case-col ul{margin:0; padding-left:18px; color:var(--ink-soft); font-size:14.5px;}
+  .case-col li{margin-bottom:8px;}
+  .stat-row{display:flex; gap:28px; margin-top:24px; padding-top:24px; border-top:1px solid var(--card-line); flex-wrap:wrap;}
+  .stat b{display:block; font-family:var(--font-display); font-size:28px; color:var(--ink);}
+  .stat span{font-size:12.5px; color:var(--ink-soft);}
+
+  /* ---- Experience timeline ---- */
+  .timeline{border-left:1px solid var(--card-line); margin-left:6px;}
+  .tl-item{position:relative; padding:0 0 44px 32px;}
+  .tl-item:last-child{padding-bottom:0;}
+  .tl-item::before{
+    content:""; position:absolute; left:-5px; top:4px; width:9px; height:9px;
+    border-radius:50%; background:var(--paper); border:2px solid var(--amber);
+  }
+  .tl-item .meta{font-family:var(--font-mono); font-size:12.5px; color:var(--ink-soft); margin-bottom:4px;}
+  .tl-item h3{font-size:18px; margin-bottom:2px;}
+  .tl-item .co{color:var(--ink-soft); font-size:14px; margin-bottom:12px;}
+  .tl-item ul{margin:0; padding-left:18px; color:var(--ink-soft); font-size:14.5px;}
+  .tl-item li{margin-bottom:6px;}
+
+  /* ---- Education ---- */
+  .edu-card{
+    display:flex; justify-content:space-between; gap:24px; flex-wrap:wrap;
+    border:1px solid var(--card-line); background:var(--card); border-radius:var(--radius); padding:32px;
+  }
+  .edu-card h3{font-size:19px; margin-bottom:6px;}
+  .edu-card .co{color:var(--ink-soft); font-size:14px; margin-bottom:14px;}
+  .edu-card .cols{display:flex; gap:48px; flex-wrap:wrap;}
+  .edu-card .cols div{font-size:13.5px; color:var(--ink-soft);}
+  .edu-card .cols b{display:block; color:var(--ink); font-family:var(--font-mono); font-size:12px; margin-bottom:6px;}
+  .edu-meta{font-family:var(--font-mono); font-size:12.5px; color:var(--ink-soft); text-align:right; white-space:nowrap;}
+
+  /* ---- Contact / footer ---- */
+  footer{padding:80px 0 48px; border-top:1px solid var(--line);}
+  footer h2{margin-bottom:14px;}
+  footer p{color:var(--ink-soft);}
+  .contact-row{display:flex; gap:28px; flex-wrap:wrap; margin-top:28px; font-size:14.5px;}
+  .contact-row a{text-decoration:none; border-bottom:1px solid var(--card-line); padding-bottom:2px;}
+  .contact-row a:hover{border-color:var(--ink);}
+  .foot-bottom{margin-top:56px; font-size:12.5px; color:var(--ink-soft); font-family:var(--font-mono);}
+
+  .reveal{opacity:0; transform:translateY(14px); transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1; transform:none;}
+  @media (prefers-reduced-motion: reduce){ .reveal{opacity:1; transform:none; transition:none;} }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <div class="name">Andy Kwan</div>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#work">Work</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <h1>Andy Kwan,<br>Kwan Kin Man</h1>
+      <p class="tagline">I used to design for screens; now I want to design for systems.</p>
+      <p class="lede">Creative media &amp; marketing graduate moving into business analysis — I map workflows, gather requirements, and build practical Power Platform solutions that turn messy processes into usable systems.</p>
+      <div class="cta-row">
+        <a class="btn btn-solid" href="#work">View case studies</a>
+        <a class="btn btn-ghost" href="mailto:kwankinman2003@gmail.com">Get in touch</a>
+      </div>
+    </div>
+    <div class="flow reveal">
+      <div class="flow-node"><span class="flow-dot"></span><div><b>UI/UX Design</b><br>Figma, user-centred interfaces</div></div>
+      <div class="flow-connector"></div>
+      <div class="flow-node"><span class="flow-dot" style="background:var(--indigo)"></span><div><b>Process Mapping</b><br>Visio, workflow &amp; requirements</div></div>
+      <div class="flow-connector"></div>
+      <div class="flow-node"><span class="flow-dot"></span><div><b>Automation</b><br>Power Apps, Power Automate, SharePoint</div></div>
+      <div class="flow-connector"></div>
+      <div class="flow-node"><span class="flow-dot" style="background:var(--indigo)"></span><div><b>Data Insight</b><br>Power BI, SQL, dashboards</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="wrap">
+    <div><span class="label">// About</span></div>
+    <div class="reveal">
+      <p>I'm a Creative Media graduate from <strong>City University of Hong Kong</strong> (minor in Marketing), and my path into business analysis started sideways — through UI/UX design and HR automation work at Ricoh Hong Kong, where I spent as much time interviewing stakeholders and mapping processes as I did designing screens.</p>
+      <p style="margin-top:16px;">That mix stuck with me. I'm comfortable gathering requirements, sketching a workflow before I build it, and using Power Apps, Power Automate, Power BI and basic SQL to turn a process into something people actually use — with AI tools like Copilot and Perplexity built into how I work day to day.</p>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <h2>Skills</h2>
+    <div class="skill-grid">
+      <div class="skill-group">
+        <h3>Business &amp; technical</h3>
+        <div class="chip-row">
+          <span class="chip">Power BI</span><span class="chip">Power Apps</span>
+          <span class="chip">Power Automate</span><span class="chip">SharePoint</span>
+          <span class="chip">Basic SQL</span><span class="chip">Business Process Analysis</span>
+          <span class="chip">User Acceptance Testing</span><span class="chip">AI Tools (Copilot, Perplexity)</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h3>Design &amp; visual tools</h3>
+        <div class="chip-row">
+          <span class="chip">Figma</span><span class="chip">Microsoft Visio</span>
+          <span class="chip">Adobe Creative Suite</span><span class="chip">DaVinci Resolve</span>
+          <span class="chip">Motion Graphics</span><span class="chip">HTML5 &amp; CSS3</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h3>Soft skills</h3>
+        <div class="chip-row">
+          <span class="chip">Cross-functional Collaboration</span><span class="chip">Problem Solving</span>
+          <span class="chip">Event Marketing</span><span class="chip">Adaptability</span>
+          <span class="chip">Communication</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h3>Languages</h3>
+        <div class="chip-row">
+          <span class="chip">Cantonese — Native</span><span class="chip">English — Upper-Intermediate</span>
+          <span class="chip">Mandarin — Upper-Intermediate</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="wrap">
+    <h2>Featured work</h2>
+
+    <div class="case reveal">
+      <div class="case-head"><h3>Modernizing HR's internal SharePoint platform</h3><span class="mono">Ricoh Hong Kong</span></div>
+      <div class="role">Redesigned UI/UX and automated core workflows for the HR department's internal systems.</div>
+      <div class="case-body">
+        <div class="case-col">
+          <h4>Approach</h4>
+          <ul>
+            <li>Gathered requirements from internal HR stakeholders to find workflow bottlenecks</li>
+            <li>Mapped 3 existing process steps to identify automation opportunities</li>
+            <li>Designed and deployed 4 Power Platform solutions using Power Apps, SharePoint Lists and Power Automate, assisted by Copilot 365</li>
+          </ul>
+        </div>
+        <div class="case-col">
+          <h4>Impact</h4>
+          <ul>
+            <li>Restructured SharePoint Team Sites to improve data architecture and document management</li>
+            <li>Redesigned UI navigation to cut resource navigation time</li>
+            <li>Built Power BI dashboards on top of the new Power Apps data for ongoing insight</li>
+          </ul>
+        </div>
+      </div>
+      <div class="stat-row">
+        <div class="stat"><b>4</b><span>Power Platform solutions shipped</span></div>
+        <div class="stat"><b>3</b><span>process steps mapped &amp; automated</span></div>
+        <div class="stat"><b>−30%</b><span>navigation time</span></div>
+      </div>
+    </div>
+
+    <div class="case reveal">
+      <div class="case-head"><h3>User-centred interfaces for STEM education</h3><span class="mono">Infinity Lab R&amp;D</span></div>
+      <div class="role">Designed interfaces and visual materials for educational toolkits and corporate branding.</div>
+      <div class="case-body">
+        <div class="case-col">
+          <h4>Approach</h4>
+          <ul>
+            <li>Designed user-centred interfaces based on user needs, project requirements and brand guidelines</li>
+            <li>Mapped 3 existing process steps and identified opportunities for automation</li>
+          </ul>
+        </div>
+        <div class="case-col">
+          <h4>Impact</h4>
+          <ul>
+            <li>Coordinated workshops and cross-functional communication for smooth project delivery</li>
+            <li>Organised project materials, schedules and feedback to improve coordination across activities</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <h2>Experience</h2>
+    <div class="timeline">
+
+      <div class="tl-item reveal">
+        <div class="meta">Jul 2026 – Aug 2026 · Kowloon Bay</div>
+        <h3>Project Assistant (HR) Intern</h3>
+        <div class="co">Ricoh Hong Kong Limited</div>
+        <ul>
+          <li>Gathered requirements from internal HR stakeholders to identify workflow bottlenecks and optimization opportunities</li>
+          <li>Designed, built and deployed automation solutions using Power Apps, SharePoint Lists and Power Automate, assisted by Copilot 365</li>
+          <li>Restructured SharePoint Team Sites to optimize data architecture, document management and visual navigation</li>
+          <li>Used AI-assisted workflows to streamline data processing, reporting and daily operations</li>
+        </ul>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="meta">Jun 2024 – Sep 2024 · Kowloon Bay</div>
+        <h3>UI/UX Design &amp; STEM Education Intern</h3>
+        <div class="co">Infinity Lab R&amp;D</div>
+        <ul>
+          <li>Designed user-centred interfaces and visual materials for educational toolkits and corporate branding</li>
+          <li>Managed, organized and coordinated educational activities and workshops across teams</li>
+        </ul>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="meta">Mar 2023 – Sep 2023 · Kowloon Bay</div>
+        <h3>VFX Internship Trainee</h3>
+        <div class="co">3JBK Production House</div>
+        <ul>
+          <li>Assisted with VFX tasks, project tracking and post-production workflows for TV dramas and commercials</li>
+          <li>Designed and animated motion graphics tailored to client requirements for promotional videos</li>
+        </ul>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="meta">Jul 2022 – Oct 2022 · San Po Kong</div>
+        <h3>Graphic Design &amp; Marketing Intern</h3>
+        <div class="co">LaCool Inc.</div>
+        <ul>
+          <li>Managed and curated social media content with AI assistance to drive engagement from campaign insights</li>
+          <li>Prepared visual layouts and packaging materials aligned to brand specifications</li>
+          <li>Analyzed campaign metrics to help optimize performance and strategy</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="wrap">
+    <h2>Education</h2>
+    <div class="edu-card reveal">
+      <div>
+        <h3>Bachelor of Arts in Creative Media</h3>
+        <div class="co">City University of Hong Kong (CityUHK) · Minor in Marketing</div>
+        <div class="cols">
+          <div><b>Major curriculum</b>Visual Storytelling, Creative Coding, Digital Media, UI/UX Design — CGPA 3.01</div>
+          <div><b>Minor curriculum</b>Marketing, CRM, Cultural Advertising, Design Thinking, Data Visualization — CGPA 3.14</div>
+        </div>
+      </div>
+      <div class="edu-meta">2022 – 2026</div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <h2>Let's talk</h2>
+    <p>Open to Business Analyst roles in Hong Kong — happy to walk through any of the work above in more detail.</p>
+    <div class="contact-row">
+      <a href="mailto:kwankinman2003@gmail.com">kwankinman2003@gmail.com</a>
+      <a href="tel:+85255399836">+852 5539 9836</a>
+      <a href="https://www.linkedin.com/in/kkmkwan" target="_blank" rel="noopener">linkedin.com/in/kkmkwan</a>
+      <span>Kowloon, Hong Kong</span>
+    </div>
+    <div class="foot-bottom">Andy Kwan, Kwan Kin Man — updated 2026</div>
+  </div>
+</footer>
+
+<script>
+  const els = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.15 });
+    els.forEach(el => io.observe(el));
+  } else {
+    els.forEach(el => el.classList.add('in'));
+  }
+</script>
+</body>
+</html>
